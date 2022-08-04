@@ -1,6 +1,6 @@
 {
   "name": "@violentmonkey/url",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Add SPA support to your userscript.",
   "author": "Gerald <gera2ld@live.com>",
   "license": "MIT",
