@@ -1,0 +1,44 @@
+{
+  "name": "@violentmonkey/url",
+  "version": "0.0.0",
+  "description": "Add SPA support to your userscript.",
+  "author": "Gerald <gera2ld@live.com>",
+  "license": "MIT",
+  "scripts": {
+    "ci": "run-s lint",
+    "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
+    "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ext .ts,tsx src",
+    "dev": "rollup -wc rollup.conf.js",
+    "clean": "del-cli dist types",
+    "build:js": "rollup -c rollup.conf.js",
+    "build": "run-s ci clean build:types build:js",
+    "prepare": "husky install",
+    "prepublishOnly": "run-s build",
+    "build:types": "tsc -p tsconfig.prod.json"
+  },
+  "main": "dist/index.js",
+  "unpkg": "dist/index.js",
+  "jsdelivr": "dist/index.js",
+  "module": "dist/index.mjs",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "typings": "types/index.d.ts",
+  "dependencies": {
+    "@babel/runtime": "^7.18.3"
+  },
+  "devDependencies": {
+    "@gera2ld/plaid": "~2.5.5",
+    "@gera2ld/plaid-common-ts": "~2.5.1",
+    "@gera2ld/plaid-rollup": "~2.5.0",
+    "del-cli": "^4.0.1",
+    "husky": "^8.0.1",
+    "typedoc": "^0.23.10"
+  },
+  "repository": "git@github.com:violentmonkey/vm-url.git"
+}
