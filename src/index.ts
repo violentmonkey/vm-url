@@ -34,12 +34,33 @@ function hookHistory() {
   });
 }
 
+function hookNavigation() {
+  if (historyHijacked) return;
+
+  // The Navigation API is experimental and support for it is still limited.
+  // See the browsers that support it below:
+  // https://developer.mozilla.org/en-US/docs/Web/API/Navigation
+  if (
+    typeof window !== "undefined" &&
+    window.navigation &&
+    window.navigation.addEventListener
+  ) {
+    historyHijacked = true;
+    window.navigation.addEventListener("navigate", handleNavigate);
+    return true;
+  }
+  return false;
+}
+
 function handleNavigate() {
   navigateCallbacks.forEach((callback) => callback());
 }
 
 export function onNavigate(callback: () => void) {
-  hookHistory();
+  // Prefer the modern Navigation API when it is available
+  if (!historyHijacked && !hookNavigation()) {
+    hookHistory();
+  }
   navigateCallbacks.add(callback);
   return () => {
     navigateCallbacks.delete(callback);

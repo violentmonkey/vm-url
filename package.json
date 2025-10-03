@@ -36,6 +36,7 @@
     "@gera2ld/plaid": "~2.5.5",
     "@gera2ld/plaid-common-ts": "~2.5.1",
     "@gera2ld/plaid-rollup": "~2.5.0",
+    "@types/dom-navigation": "^1.0.6",
     "del-cli": "^4.0.1",
     "husky": "^8.0.1",
     "typedoc": "^0.23.10"
