@@ -1,0 +1,24 @@
+name: Publish to npmjs
+
+on:
+  push:
+    tags:
+      - v*
+
+permissions:
+  id-token: write # Required for OIDC
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/setup@v3
+        with:
+          version: 12
+          runtime: node@26
+          cache: true
+
+      - run: pnpm i && pnpm publish --no-git-checks

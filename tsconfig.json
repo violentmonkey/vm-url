@@ -2,9 +2,10 @@
   "compilerOptions": {
     "target": "es6",
     "module": "es6",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "declaration": true,
-    "outDir": "types",
+    "outDir": "dist",
+    "rootDir": "./src",
     "allowSyntheticDefaultImports": true,
     "jsx": "preserve"
   },

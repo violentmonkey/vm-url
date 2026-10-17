@@ -10,9 +10,9 @@ export interface IHijackOptions<T extends unknown[], U> {
 
 export function hijack<T extends unknown[], U>(
   fn: (...args: T) => U,
-  options?: IHijackOptions<T, U>
+  options?: IHijackOptions<T, U>,
 ) {
-  const hijacked = function (...args: T) {
+  const hijacked = function (this: any, ...args: T) {
     const ctx: IHijackContext<T, U> = { args, result: undefined };
     options?.before?.(ctx);
     ctx.result = fn.apply(this, ctx.args);
@@ -40,11 +40,7 @@ function hookNavigation() {
   // The Navigation API is experimental and support for it is still limited.
   // See the browsers that support it below:
   // https://developer.mozilla.org/en-US/docs/Web/API/Navigation
-  if (
-    typeof window !== "undefined" &&
-    window.navigation &&
-    window.navigation.addEventListener
-  ) {
+  if (typeof window !== "undefined" && window.navigation && window.navigation.addEventListener) {
     historyHijacked = true;
     window.navigation.addEventListener("navigate", handleNavigate);
     return true;
@@ -67,9 +63,6 @@ export function onNavigate(callback: () => void) {
   };
 }
 
-export const versions = Object.assign(
-  (typeof VM !== 'undefined' && VM?.versions) || {},
-  {
-    url: 'process.env.VERSION',
-  }
-);
+export const versions = Object.assign((typeof VM !== "undefined" && VM?.versions) || {}, {
+  url: __VERSION__,
+});

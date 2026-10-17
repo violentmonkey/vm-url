@@ -10,22 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/setup@v3
         with:
-          persist-credentials: false
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-      - uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 7
+          version: 12
+          runtime: node@26
+          cache: true
+
       - name: Build docs
         run: pnpm i && pnpm typedoc src/index.ts
+
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BASE_BRANCH: main
-          BRANCH: gh-pages
-          FOLDER: docs
-          SINGLE_COMMIT: true
+          branch: gh-pages
+          folder: docs
+          single-commit: true

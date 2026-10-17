@@ -26,7 +26,7 @@ Add SPA support to your userscript.
    ```
 
    ```js
-   import { onNavigate } from '@violentmonkey/url';
+   import { onNavigate } from "@violentmonkey/url";
    ```
 
 ### Handling
@@ -34,9 +34,9 @@ Add SPA support to your userscript.
 ```js
 function handleNavigate() {
   resetAllFeatures();
-  if (window.location.pathname === '/foo') {
+  if (window.location.pathname === "/foo") {
     enableFeatureFoo();
-  } else if (window.location.pathname === '/bar') {
+  } else if (window.location.pathname === "/bar") {
     enableFeatureBar();
   }
 }
